@@ -6,7 +6,7 @@ import { ActivityIndicator, Avatar, Card, RadioButton } from 'react-native-paper
 import { SafeAreaWrapper } from '../../components/safeAreaWrapper/safeAreaWrapper';
 import { WeatherContext, WeatherContextProvider } from '../../services/weather/weather.context';
 import { fetchWeather, WeatherService } from '../../services/weather/weather.service';
-import { colors } from '../../theme/colours';
+import { colours } from '../../theme/colours';
 import { TasksList } from '../../components/tasks/tasks';
 
 
@@ -14,7 +14,7 @@ export const Home = ({ navigation }) => {
 
     return (
         <WeatherContextProvider>
-            <ScrollView style={{ flex: 1, backgroundColor: colors.plantaBackgroundGrey }}>
+            <ScrollView style={{ flex: 1, backgroundColor: colours.plantaBackgroundGrey }}>
                 <HeaderBar />
 
                 <TasksList navigation={navigation} />

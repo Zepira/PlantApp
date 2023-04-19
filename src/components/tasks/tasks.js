@@ -6,7 +6,7 @@ import { ActivityIndicator, Avatar, Card, RadioButton } from 'react-native-paper
 import { SafeAreaWrapper } from '../../components/safeAreaWrapper/safeAreaWrapper';
 import { WeatherContext, WeatherContextProvider } from '../../services/weather/weather.context';
 import { fetchWeather, WeatherService } from '../../services/weather/weather.service';
-import { colors } from '../../theme/colours';
+import { colours } from '../../theme/colours';
 
 
 export const TasksList = ({ navigation }) => {
@@ -40,14 +40,14 @@ const Tasks = ({ gardenTasks, navigation }) => {
             <Avatar.Image size={50} source={gardenTasks.gardenImage} />
             <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, flexDirection: 'column' }}>
                 <Text variant="bodySmall">{gardenTasks.gardenName}</Text>
-                <Text variant="bodySmall" style={{ color: colors.ashGray }}>{gardenTasks.plants.join([separator = ', '])}</Text>
+                <Text variant="bodySmall" style={{ color: colours.ashGray }}>{gardenTasks.plants.join([separator = ', '])}</Text>
             </View>
             <View style={{ flex: 0 }}>
                 <RadioButton.Android
                     value="first"
                     status={checked === 'first' ? 'checked' : 'unchecked'}
                     onPress={() => { checked === 'first' ? setChecked('') : setChecked('first') }}
-                    color={colors.plantaLightGreen}
+                    color={colours.plantaLightGreen}
                 />
             </View>
 

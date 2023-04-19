@@ -1,18 +1,20 @@
-import React from "react";
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useContext, useEffect } from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home } from '../pages/home/home';
 import { Text, View } from 'react-native';
 import { SafeAreaWrapper } from '../components/safeAreaWrapper/safeAreaWrapper';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { colors } from '../theme/colours';
+import { colours } from '../theme/colours';
 import { HomeNavigator } from "./home.navigator";
+import { AuthenticationContext } from "../services/authentication/authentication.context";
+import { CameraScreen } from "../pages/camera/camera.screen";
 
 const TAB_ICON = {
     Home: 'home',
     Settings: 'md-settings',
     Search: 'search',
-    Plant: 'leaf'
+    Plant: 'leaf',
+    Camera: 'camera'
 };
 
 const Tab = createBottomTabNavigator();
@@ -22,11 +24,11 @@ const screenOptions = ({ route }) => {
     const iconName = TAB_ICON[route.name]
     return {
         tabBarIcon: ({ size, color }) => <Ionicons name={iconName} size={size} color={color} />,
-        tabBarActiveTintColor: colors.menuDarkGreen,
-        tabBarInactiveTintColor: colors.fadedGreen,
+        tabBarActiveTintColor: colours.menuDarkGreen,
+        tabBarInactiveTintColor: colours.fadedGreen,
         tabBarShowLabel: false,
         headerShown: false, //set on individual pages if required
-        tabBarStyle: { backgroundColor: colors.menuLightGreen }
+        tabBarStyle: { backgroundColor: colours.menuLightGreen }
     }
 }
 
@@ -41,15 +43,24 @@ const Settings = () => {
 }
 
 export const AppNavigator = () => {
+    const { user, onLogin, isAuthenticated } = useContext(AuthenticationContext);
+
+
+    useEffect(() => {
+        onLogin();
+        console.log(user);
+    }, []);
+
+
     return (
-        <NavigationContainer>
-            <Tab.Navigator
-                screenOptions={screenOptions}>
-                <Tab.Screen name="Home" component={HomeNavigator} />
-                <Tab.Screen name="Plant" component={Settings} />
-                <Tab.Screen name="Search" component={Settings} />
-                <Tab.Screen name="Settings" component={Settings} />
-            </Tab.Navigator>
-        </NavigationContainer>
+
+        <Tab.Navigator
+            screenOptions={screenOptions}>
+            <Tab.Screen name="Home" component={HomeNavigator} />
+            <Tab.Screen name="Plant" component={Settings} />
+            <Tab.Screen name="Camera" component={CameraScreen} />
+            <Tab.Screen name="Settings" component={Settings} />
+        </Tab.Navigator>
+
     );
 }

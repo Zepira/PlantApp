@@ -1,7 +1,7 @@
-export const colors = {
+export const colours = {
     plantaLightGreen: '#89a365',
     plantaDarkGreen: '#1b4723',
-    darkGreen: '#416D50',
+    darkGreen: '#5D8261', //plantkeeper pale green colour
     lightBlue: '#A8D3E0ff',
     moonstone: '#7EB2C1ff',
     ashGray: '#A1AB91ff',
@@ -14,13 +14,14 @@ export const colors = {
     menuDarkGreen: '#234722',
     menuLightGreen: '#c5dea9',
     plantaBackgroundGrey: '#f4f4f4',
+    grey: '#787878',
     brand: {
         primary: "#2182BD",
         secondary: "#5282BD",
         muted: "#C6DAF7",
     },
     ui: {
-        primary: "#262626",
+        primary: "#5D8261",
         secondary: "#757575",
         tertiary: "#F1F1F1",
         quaternary: "#FFFFFF",
@@ -33,7 +34,7 @@ export const colors = {
         secondary: "#e7edde",
     },
     text: {
-        primary: "#262626",
+        primary: "#5D8261",
         secondary: "#757575",
         disabled: "#9C9C9C",
         inverse: "#FFFFFF",
