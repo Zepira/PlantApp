@@ -33,6 +33,12 @@
           "isIosBackgroundLocationEnabled": "Allow $(PRODUCT_NAME) to use your location.",
           "isAndroidBackgroundLocationEnabled": "Allow $(PRODUCT_NAME) to use your location."
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
       ]
     ]
   }

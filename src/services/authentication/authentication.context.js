@@ -16,7 +16,6 @@ export const AuthenticationContextProvider = ({ auth, children }) => {
 
 
     onAuthStateChanged(auth, (usr) => {
-        console.log('ALANA', auth);
         if (auth.currentUser) {
             setUser(auth.currentUser);
             setIsLoading(false);
@@ -63,7 +62,14 @@ export const AuthenticationContextProvider = ({ auth, children }) => {
 
     return (
         <AuthenticationContext.Provider
-            value={{ isAuthenticated: !!user, user, isLoading, error, onLogin, onSignUp, onLogOut }}>
+            value={{
+                isAuthenticated: true,
+                user, isLoading,
+                error,
+                onLogin,
+                onSignUp,
+                onLogOut
+            }}>
             {children}
         </AuthenticationContext.Provider>
     );
