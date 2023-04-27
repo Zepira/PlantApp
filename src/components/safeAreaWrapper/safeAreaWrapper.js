@@ -6,5 +6,5 @@ import { colours } from "../../theme/colours";
 export const SafeAreaWrapper = styled(SafeAreaView)`
   flex: 1;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
-  background-color: ${colours.plantaLightGreen}
+  background-color: 'white';
 `;

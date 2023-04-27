@@ -15,6 +15,13 @@ export const colours = {
     menuLightGreen: '#c5dea9',
     plantaBackgroundGrey: '#f4f4f4',
     grey: '#787878',
+    plantkeeperDarkGreen: '#4D6C52',
+    plantKeeperLightGreen: '#E8EDDF',
+    plantKeeperDarkestGreen: '#2B4626',
+    plantKeeperCaption: '#BEC0BE',
+    transparent: 'rgba(0,0,0,0)',
+    transparentWhite40: 'rgba(255,255,255,0.4)',
+    transparentBlack40: 'rgba(0,0,0,0.4)',
     brand: {
         primary: "#2182BD",
         secondary: "#5282BD",

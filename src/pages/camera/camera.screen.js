@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Camera, CameraType } from 'expo-camera';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaWrapper } from '../../components/safeAreaWrapper/safeAreaWrapper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthenticationContext } from "../../services/authentication/authentication.context";
 
 
 

@@ -14,12 +14,14 @@ export const AccountScreen = () => {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
 
-    const { onLogin, error } = useContext(AuthenticationContext);
+    const { onLogin, onSignUp, error } = useContext(AuthenticationContext);
     const animation = useRef(null);
 
     const submit = () => {
         if (hasExistingAccount) {
             onLogin(emailAddress, password);
+        } else {
+            onSignUp(emailAddress, password);
         }
     }
 

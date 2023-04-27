@@ -12,7 +12,8 @@ import {
   Quicksand_600SemiBold,
   Quicksand_700Bold,
 } from '@expo-google-fonts/quicksand';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, } from "firebase/auth";
+import { getFirestore, } from "firebase/firestore";
 
 
 
@@ -29,7 +30,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
+const db = getFirestore(app);
 
 
 
@@ -50,12 +51,10 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <AuthenticationContextProvider auth={auth}>
+        <AuthenticationContextProvider auth={auth} db={db}>
           <Navigation />
         </AuthenticationContextProvider>
-        <StatusBar style="auto" />
-
-
+        <StatusBar style="light" />
       </ThemeProvider>
     </>
   );
