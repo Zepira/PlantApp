@@ -1,26 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { SafeAreaView, Text, View, ImageBackground, Image, Pressable, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Image, Pressable, TouchableOpacity } from 'react-native';
 import { Avatar, Button } from 'react-native-paper';
 import { SafeAreaWrapper } from '../safeAreaWrapper/safeAreaWrapper';
 
 
 
 export const TasksDetail = ({ navigation }) => {
-    return (<View style={{ flex: 1 }}>
+	return (<View style={{ flex: 1 }}>
 
-        <Image source={require('../../../assets/background.jpg')} style={{ height: 200, marginBottom: -200, resizeMode: "cover", width: "100%" }} />
-        <SafeAreaWrapper style={{ backgroundColor: 'transparent' }}>
-            <Pressable onPress={() => navigation.navigate("HomeScreen")}>
-                <Avatar.Icon icon="close" size={24} />
-            </Pressable>
-            <Button icon="close" mode="contained" onPress={() => navigation.navigate("HomeScreen")} style={{ height: 24, width: 24 }} />
-            <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
-                <Avatar.Icon icon="close" size={24} color='white' style={{ backgroundColor: 'rgba(255,255,255, 0.5)' }} />
-            </TouchableOpacity>
-
-
-        </SafeAreaWrapper>
+		<Image source={require('../../../assets/background.jpg')} style={{ height: 200, marginBottom: -200, resizeMode: 'cover', width: '100%' }} />
+		<SafeAreaWrapper style={{ backgroundColor: 'transparent' }}>
+			<Pressable onPress={() => navigation.navigate('HomeScreen')}>
+				<Avatar.Icon icon="close" size={24} />
+			</Pressable>
+			<Button icon="close" mode="contained" onPress={() => navigation.navigate('HomeScreen')} style={{ height: 24, width: 24 }} />
+			<TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+				<Avatar.Icon icon="close" size={24} color='white' style={{ backgroundColor: 'rgba(255,255,255, 0.5)' }} />
+			</TouchableOpacity>
 
 
-    </View>);
-}
+		</SafeAreaWrapper>
+
+
+	</View>);
+};

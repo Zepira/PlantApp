@@ -8,7 +8,7 @@ export const AccountBackground = styled.ImageBackground.attrs({
 	source: require('../../../assets/background.jpg'),
 })`
   flex: 1;
-  align-items: center;
+  
   justify-content: center;
 `;
 
@@ -22,16 +22,12 @@ export const AccountCover = styled.View`
 
 
 export const AccountContainer = styled.View`
-    position: absolute;
-    bottom:0;
+    flex:1;
     backgroundColor: rgba(255,255,255,0.85);
-    width: 100%;
-    height: 75%;
-    borderTopRightRadius: 45px;
-    borderTopLeftRadius: 45px;
+  
+  
     align-items: center;
-    paddingHorizontal: 35px;
-    paddingTop:20px;
+  
 `;
 
 export const FieldsContainer = styled.View`

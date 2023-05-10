@@ -1,6 +1,6 @@
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import React from "react";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
 
 
 
