@@ -15,8 +15,7 @@ export const AppContextProvider = ({ db, storage, children }) => {
 		const docRef = query(collection(db, 'plants'));
 		getDocs(docRef)
 			.then((something) => {
-				const docs = something.docs.map((f) => f.data());
-				console.log(docs);
+				const docs = something.docs.map((f) => ({ ...f.data(), ...{ id: f.id } }));
 				setPlantData(docs);
 			}
 			);

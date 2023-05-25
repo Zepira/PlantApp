@@ -11,7 +11,6 @@ export const Navigation = () => {
 	const { isAuthenticated, hasCompletedEntryQuestions } = useContext(AuthenticationContext);
 
 	useEffect(() => {
-		console.log('sup');
 
 	}, [hasCompletedEntryQuestions]);
 

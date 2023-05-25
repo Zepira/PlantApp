@@ -7,7 +7,7 @@ export const colors = {
 	secondary: '#e6000d',
 	onSecondary: '#e6000d',
 	secondaryContainer: '#779673',//chip selected container
-	onSecondaryContainer: '#e6000d',
+	onSecondaryContainer: 'white', //chip standard text
 	tertiary: '#e6000d',
 	onTertiary: '#e6000d',
 	tertiaryContainer: '#e6000d',
@@ -67,6 +67,7 @@ export const colors = {
 	plantKeeperH2: '#BEC0BE',
 	transparent: 'rgba(0,0,0,0)',
 	transparentWhite40: 'rgba(255,255,255,0.4)',
+	transparentWhite60: 'rgba(255,255,255,0.6)',
 	transparentBlack40: 'rgba(0,0,0,0.4)',
 
 	brand: {

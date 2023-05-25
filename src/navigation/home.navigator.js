@@ -4,6 +4,8 @@ import { Home } from '../pages/home/home';
 
 import { TasksDetail } from '../components/tasks/taskDetail';
 import { PlantsNavigator } from './plants.navigator';
+import { GardenNavigator } from './garden.navigator';
+import { GardenDetail } from '../components/gardens/gardenDetail';
 
 const HomeStack = createStackNavigator();
 
@@ -16,6 +18,8 @@ export const HomeNavigator = () => {
 			<HomeStack.Screen name="HomeScreen" component={Home} />
 			<HomeStack.Screen name="TaskDetail" component={TasksDetail} />
 			<HomeStack.Screen name="Plant" component={PlantsNavigator} />
+			<HomeStack.Screen name="Garden" component={GardenNavigator} />
+			<HomeStack.Screen name="GardenDetail" component={GardenDetail} />
 		</HomeStack.Navigator>
 	);
 };

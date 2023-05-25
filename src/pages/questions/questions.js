@@ -41,25 +41,25 @@ export const QuestionScreen = () => {
 
 
 
-	const progressForm = (direction) => {
+	// const progressForm = (direction) => {
 
-		if (direction === 'forward') {
+	// 	if (direction === 'forward') {
 
-			if (formProgress < questionaireData.length - 1) {
-				setFormProgress(formProgress + 1);
-			} else {
-				setDoc(doc(db, 'users', user.uid), userResponse, { merge: true });
-				onCompleteEntryQuestions();
-			}
-		}
-		else {
-			setFormProgress(formProgress - 1);
-		}
-	};
+	// 		if (formProgress < questionaireData.length - 1) {
+	// 			setFormProgress(formProgress + 1);
+	// 		} else {
+	// 			setDoc(doc(db, 'users', user.uid), userResponse, { merge: true });
+	// 			onCompleteEntryQuestions();
+	// 		}
+	// 	}
+	// 	else {
+	// 		setFormProgress(formProgress - 1);
+	// 	}
+	// };
 
-	const updateFormValue = (value) => {
-		setUserResponse({ ...userResponse, [questionaireData[formProgress].databaseValue]: value });
-	};
+	// const updateFormValue = (value) => {
+	// 	setUserResponse({ ...userResponse, [questionaireData[formProgress].databaseValue]: value });
+	// };
 
 	const questionaireData = [
 		{
@@ -155,28 +155,12 @@ export const QuestionScreen = () => {
 
 				<View key={questionaireData[formProgress].index} style={{ alignItems: 'center' }}>
 					<Text variant="label" style={{ textAlign: 'center', paddingHorizontal: 50, marginTop: 20 }}>We need to check a few things before we get started!</Text>
-					<View style={{ width: '80%', marginTop: 20, flex: 1 }}>
-						<ProgressBar progress={percentageFormComplete} color={colors.plantkeeperDarkGreen} style={{ borderRadius: 20, marginBottom: 30 }} />
-						<Text variant="h2" style={{ textAlign: 'center' }}>{questionaireData[formProgress].questionText}</Text>
-						<Text variant="label" style={{ textAlign: 'center', marginVertical: 20 }}>{questionaireData[formProgress].questionSubText}</Text>
 
-						<FormComponent variant={questionaireData[formProgress].questionType} data={questionaireData[formProgress].options} updateFormValue={updateFormValue} />
-					</View>
+
+					<FormComponent variant={questionaireData[formProgress].questionType} data={questionaireData[formProgress].options} updateFormValue={updateFormValue} />
 				</View>
 
 
-
-
-
-				<View style={{ width: '80%', position: 'absolute', bottom: 30, flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
-					{formProgress > 0 && < PrimaryButton onPress={() => progressForm('backwards')} style={{ flex: 1, marginRight: 10 }}>
-						<Text variant="button" style={{ color: 'white' }}>Back</Text>
-					</PrimaryButton>}
-					<PrimaryButton onPress={() => progressForm('forward')} style={{ flex: 1 }} disabled={!userResponse[questionaireData[formProgress].databaseValue]}>
-						<Text variant="button" style={{ color: 'white' }}>Next</Text>
-					</PrimaryButton>
-
-				</View>
 
 			</AccountContainer>
 		</AccountBackground >
