@@ -17,20 +17,35 @@ export const GardenDetail = ({ route, navigation }) => {
 
 	useEffect(() => {
 		const getPlantData = async () => {
+			let fullPlantList = [];
+
+
 			let plantIdList = [];
 			let plantList = [];
 			const q = query(collection(db, 'userPlants'), where('gardenId', '==', garden.id));
 
 			const querySnapshot = await getDocs(q);
-			querySnapshot.forEach((plantDoc) =>
-				plantIdList.push(plantDoc.data().plantId)
+			querySnapshot.forEach((plantDoc) => {
+				fullPlantList.push(plantDoc.data());
+
+			}
 			);
 
+			for (let userPlant of fullPlantList) {
 
-			for (const plantId of plantIdList) {
-				const plantDoc = await getDoc(doc(db, 'plants', plantId));
-				plantList.push(plantDoc.data());
+				const plantDoc = await getDoc(doc(db, 'plants', userPlant.plantId));
+
+				//userPlant = { ...userPlant, ...plantDoc.data() };
+				plantList.push({ ...userPlant, ...plantDoc.data() });
+
 			}
+
+
+			// for (const plantId of plantIdList) {
+			// 	const plantDoc = await getDoc(doc(db, 'plants', plantId));
+			// 	plantList.push(plantDoc.data());
+			// }
+
 
 			return plantList;
 

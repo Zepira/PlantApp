@@ -69,11 +69,15 @@ export const PlantsDetail = ({ route, navigation }) => {
 		// }
 		// updatedGardens[index].plants.push(`plants/${data.id}`);
 
-		console.log('alana', data);
+
+		const date = new Date();
+		console.log('alana', date);
 		addDoc(collection(db, 'userPlants'), {
 			plantId: data.id,
 			gardenId: garden.id,
-			userId: user.uid
+			userId: user.uid,
+			dateSown: date,
+			growthStage: 0
 		});
 		setIsModalVisible(false);
 
