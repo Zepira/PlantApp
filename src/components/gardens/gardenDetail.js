@@ -69,7 +69,7 @@ export const GardenDetail = ({ route, navigation }) => {
 					<Text variant="title" style={{ color: theme.colors.plantkeeperDarkGreen }}>{garden.gardenName}</Text>
 					<Text variant="h2" style={{ marginBottom: 10 }}>{GARDEN_TYPE[garden.gardenType - 1].optionText}</Text>
 				</View>
-				{plants && plants.map((plant, index) => <Plant key={index} plant={plant} />)}
+				{plants && plants.map((plant, index) => <Plant key={index} plant={plant} showProgressIndicator={true} />)}
 
 
 			</SafeAreaWrapper>

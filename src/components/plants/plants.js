@@ -51,9 +51,10 @@ export const PlantList = ({ navigation }) => {
 		</>);
 };
 
-export const Plant = ({ plant, navigation }) => {
+export const Plant = ({ plant, navigation, showProgressIndicator = false }) => {
 
 	const [growthProgress, setGrowthProgress] = useState(0);
+	const [growthStage, setGrowthStage] = useState(0);
 
 	// const something = plant.dateSown.toDate();
 	// const asdasd = something.setDate(something + 5);
@@ -78,20 +79,23 @@ export const Plant = ({ plant, navigation }) => {
 
 		//plant.dateSown
 		//plant.daysToSprout
-		const date = new Date();
-		const daysElapsed = Math.floor((date - plant.dateSown.toDate()) / (1000 * 60 * 60 * 24));
-		const calc = (daysElapsed / plant.daysToSprout) * 100;
-
-		console.log(date, plant.dateSown.toDate(), plant.daysToSprout, daysElapsed, calc);
-
-
-
-
-		if (daysElapsed > plant.daysToSprout) {
-			setGrowthProgress(100);
-		} else {
-			setGrowthProgress(calc);
+		if (showProgressIndicator) {
+			const date = new Date();
+			const daysSinceSowing = Math.floor((date - plant.dateSown.toDate()) / (1000 * 60 * 60 * 24));
+			const sproutProgress = (daysSinceSowing / plant.daysToSprout) * 100;
+			if (sproutProgress > 100) {
+				const plantProgress = (daysSinceSowing / plant.sproutToHarvest) * 100;
+				if (plantProgress > 100) {
+					setGrowthStage(2);
+				} else {
+					setGrowthStage(1);
+					setGrowthProgress(plantProgress);
+				}
+			} else {
+				setGrowthProgress(sproutProgress);
+			}
 		}
+
 	}, []);
 
 	// useEffect(() => {
@@ -106,6 +110,8 @@ export const Plant = ({ plant, navigation }) => {
 
 
 
+
+
 	return (
 		<TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20, marginHorizontal: 15 }}
 			onPress={() => navigation.navigate('PlantDetail', plant)}>
@@ -114,19 +120,8 @@ export const Plant = ({ plant, navigation }) => {
 				<Text variant="body" style={{ color: theme.colors.plantkeeperDarkGreen }}>{plant.plantName}</Text>
 				<Text variant="caption">{plant.plantType}</Text>
 			</View>
-			<View style={{ flex: 0 }}>
-				<AnimatedCircularProgress
-					size={50}
-					width={10}
-					backgroundWidth={5}
-					fill={growthProgress}
-					tintColor={colors.plantkeeperDarkGreen}
-					backgroundColor={colors.transparentBlack40}
-					arcSweepAngle={240}
-					rotation={240}
-					lineCap="round"
-				/>
-			</View>
+
+			{showProgressIndicator && <GrowthProgressIndicator growthStage={growthStage} growthProgress={growthProgress} />}
 			<View style={{ flex: 0 }}>
 
 				<IconButton
@@ -139,3 +134,22 @@ export const Plant = ({ plant, navigation }) => {
 
 		</TouchableOpacity>);
 };
+
+const GrowthProgressIndicator = ({ growthStage, growthProgress }) =>
+	<View >
+		{growthStage === 0 && <Avatar.Icon icon="seed" size={30} color={colors.plantKeeperDarkestGreen} style={{ backgroundColor: colors.transparent, position: 'absolute', top: 10, left: 10 }} />}
+		{growthStage === 1 && <Avatar.Icon icon="leaf" size={30} color={colors.plantKeeperDarkestGreen} style={{ backgroundColor: colors.transparent, position: 'absolute', top: 10, left: 10 }} />}
+		{growthStage < 2 && <AnimatedCircularProgress
+			size={50}
+			width={10}
+			backgroundWidth={5}
+			fill={growthProgress}
+			tintColor={colors.plantkeeperDarkGreen}
+			backgroundColor={colors.transparentBlack40}
+			arcSweepAngle={240}
+			rotation={240}
+			lineCap="round"
+		/>}
+		{growthStage == 2 && <Avatar.Icon icon="flower" size={50} color={colors.plantKeeperDarkestGreen} style={{ backgroundColor: colors.transparent }} />}
+	</View>;
+

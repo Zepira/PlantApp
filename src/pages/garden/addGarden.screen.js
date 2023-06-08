@@ -100,6 +100,7 @@ export const AddGardenScreen = ({ navigation }) => {
     const onFormComplete = (completedData) => {
         completedData.user = user.uid;
         //updateDoc(doc(db, 'users', `${user.uid}`), { userGardens: arrayUnion(completedData) }, { merge: true });
+
         addDoc(collection(db, 'userGardens'), completedData);
         navigation.navigate('HomeScreen', { setHomeToggle: 'myGarden' });
     };
