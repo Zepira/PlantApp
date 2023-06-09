@@ -3,6 +3,7 @@ import { paperTheme } from './src/theme';
 import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
 import { initializeApp } from '@firebase/app';
 import { Navigation } from './src/navigation';
+import { Platform } from 'react-native';
 import {
 	useFonts as useQuicksand,
 	Quicksand_300Light,
@@ -17,6 +18,7 @@ import { getStorage } from 'firebase/storage';
 import { Provider as PaperProvider } from 'react-native-paper';
 import React from 'react';
 import { AppContextProvider } from './src/services/appContext';
+import { NotificationContextProvider } from './src/services/contextService/notifications/notification.context';
 
 //Initialize Firebase
 const firebaseConfig = {
@@ -51,9 +53,13 @@ export default function App() {
 		<>
 			<PaperProvider theme={paperTheme}>
 				<AppContextProvider auth={auth} db={db} storage={storage}>
-					<AuthenticationContextProvider auth={auth} db={db} storage={storage}>
-						<Navigation theme={paperTheme} />
-					</AuthenticationContextProvider>
+					<NotificationContextProvider >
+						<AuthenticationContextProvider auth={auth} db={db} storage={storage}>
+
+							<Navigation theme={paperTheme} />
+
+						</AuthenticationContextProvider>
+					</NotificationContextProvider>
 				</AppContextProvider>
 				<StatusBar style="light" />
 			</PaperProvider>

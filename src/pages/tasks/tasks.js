@@ -7,7 +7,7 @@ import { colors } from '../../theme/colors';
 import { theme, Text } from '../../theme';
 import { AppContext } from '../../services/appContext';
 import { AuthenticationContext } from '../../services/authentication/authentication.context';
-import { doc, query, collection, getDoc, getDocs, where, updateDoc } from 'firebase/firestore';
+import { doc, query, collection, getDocs, where, updateDoc } from 'firebase/firestore';
 
 
 export const TasksList = ({ navigation }) => {
@@ -34,11 +34,6 @@ export const TasksList = ({ navigation }) => {
 			return plantsQuery.docs;
 		};
 
-		const getPlantDetail = async (plantId) => {
-			const plantDetail = await getDoc(doc(db, 'plants', plantId));
-			return plantDetail;
-		};
-
 		getUserGardens().then((userGardens) => {
 
 			let userGardensList = userGardens;
@@ -49,9 +44,7 @@ export const TasksList = ({ navigation }) => {
 
 				if (!gardenData.automatedWatering) {
 
-
 					const daysSinceLastWatered = gardenData.lastWateredDate ? Math.floor((date - gardenData.lastWateredDate.toDate()) / (1000 * 60 * 60 * 24)) : null;
-
 
 					if (gardenData.wateringFrequency && (daysSinceLastWatered === null || daysSinceLastWatered > gardenData.wateringFrequency)) {
 						gardensToWater.push(
@@ -81,7 +74,6 @@ export const TasksList = ({ navigation }) => {
 							'checked': false
 						}
 					);
-
 				}
 				if (gardenData.weedingFrequency && (daysSinceLastWeeded === null || daysSinceLastWeeded > gardenData.weedingFrequency)) {
 					gardensToWeed.push(
@@ -95,13 +87,8 @@ export const TasksList = ({ navigation }) => {
 						}
 					);
 				}
-
-
-
-
-
-
 			});
+
 			return userGardensList;
 		}).then((result) => {
 			//loop through gardens to get plants
@@ -117,49 +104,46 @@ export const TasksList = ({ navigation }) => {
 						const plantData = plant.data();
 
 						if (plantData.readyToHarvest) {
-							var plantName = '';
-							getPlantDetail(plantData.plantId).then((plantDetail) => {
-								plantName = plantDetail.data().plantName;
-								plantsToHarvest.push(plantName);
 
-							}).then(() => {
 
-								gardensToHarvest.push(
-									{
-										'gardenName': garden.data().gardenName,
-										'gardenImage': require('../../../assets/vegetable-garden.jpg'),
-										'plants': plantsToHarvest,
-										'id': garden.id,
-										'checked': false
-									}
-								);
-							}).then(() => {
-								setTasks([
-									{
-										'taskName': 'Water',
-										'gardens': gardensToWater
-									},
-									{
-										'taskName': 'Fertilise',
-										'gardens': gardensToFertilise
-									},
-									{
-										'taskName': 'Weed',
-										'gardens': gardensToWeed
-									},
-									{
-										'taskName': 'Harvest',
-										'gardens': gardensToHarvest
-									}]);
-							});
-
+							plantsToHarvest.push(plantData.plantName);
 						}
 					});
+				}).then(() => {
+
+					gardensToHarvest.push(
+						{
+							'gardenName': garden.data().gardenName,
+							'gardenImage': require('../../../assets/vegetable-garden.jpg'),
+							'plants': plantsToHarvest,
+							'id': garden.id,
+							'checked': false
+						}
+					);
+				}).then(() => {
+					setTasks([
+						{
+							'taskName': 'Water',
+							'gardens': gardensToWater
+						},
+						{
+							'taskName': 'Fertilise',
+							'gardens': gardensToFertilise
+						},
+						{
+							'taskName': 'Weed',
+							'gardens': gardensToWeed
+						},
+						{
+							'taskName': 'Harvest',
+							'gardens': gardensToHarvest
+						}
+					]);
 				});
+
 			});
+
 		});
-
-
 
 	}, [tasksUpdated]);
 
@@ -222,73 +206,10 @@ const Tasks = ({ gardenTask, navigation, completeTask }) => {
 				<RadioButton.Android
 					value={gardenTask.gardenName}
 					status={checked === gardenTask.gardenName ? 'checked' : 'unchecked'}
-					onPress={() => { checked === gardenTask.gardenName ? setChecked('') : setChecked(gardenTask.gardenName); completeTask(gardenTask.id) }}
+					onPress={() => { checked === gardenTask.gardenName ? setChecked('') : setChecked(gardenTask.gardenName); completeTask(gardenTask.id); }}
 					color={colors.plantaLightGreen}
 				/>
 			</View>
 
 		</TouchableOpacity>);
 };
-
-
-
-// const tasksData = [
-// 	{
-// 		'taskName': 'Water',
-// 		'gardens': [{
-// 			'gardenName': 'Veggie Patch',
-// 			'gardenImage': require('../../../assets/vegetable-garden.jpg'),
-// 			'plants': ['Parsley', 'Rosemary', 'Carrots', 'Strawberries', 'Potato'
-// 			],
-// 			'completed': false
-// 		},
-// 		{
-// 			'gardenName': 'Balcony Pots',
-// 			'gardenImage': require('../../../assets/pot-garden.jpg'),
-// 			'plants': ['Calendula',
-// 				'Mint'
-// 			],
-// 			'completed': false
-// 		}]
-// 	},
-// 	{
-// 		'taskName': 'Fertilise',
-// 		'gardens': [{
-// 			'gardenName': 'Veggie Patch',
-// 			'gardenImage': require('../../../assets/vegetable-garden.jpg'),
-// 			'plants': [
-// 				'Parsley', 'Rosemary', 'Carrots',
-// 			],
-// 			'completed': false
-// 		},
-// 		{
-// 			'gardenName': 'Balcony Pots',
-// 			'gardenImage': require('../../../assets/pot-garden.jpg'),
-// 			'plants': [
-// 				'Calendula',
-// 				'Mint',
-// 			],
-// 			'completed': false
-// 		}]
-// 	},
-// 	{
-// 		'taskName': 'Harvest',
-// 		'gardens': [{
-// 			'gardenName': 'Veggie Patch',
-// 			'gardenImage': require('../../../assets/vegetable-garden.jpg'),
-// 			'plants': [
-// 				'Parsley', 'Rosemary', 'Carrots',
-// 			],
-// 			'completed': false
-// 		},
-// 		{
-// 			'gardenName': 'Balcony Pots',
-// 			'gardenImage': require('../../../assets/pot-garden.jpg'),
-// 			'plants': [
-// 				'Calendula',
-// 				'Mint',
-// 			],
-// 			'completed': false
-// 		}]
-// 	}
-// ];

@@ -1,3 +1,4 @@
+export const EXPO_PROJECT_ID = 'cc10a9d8-71f7-4c7a-bd2e-8d2db49c2e6d';
 
 export const GARDEN_TYPE = [
     {

@@ -5,19 +5,8 @@ import { Avatar, IconButton } from 'react-native-paper';
 import { theme, Text } from '../../theme';
 import { AppContext } from '../../services/appContext';
 import { query, collection, getDocs } from 'firebase/firestore';
-import Animated, {
-	useSharedValue,
-	withTiming,
-	useAnimatedProps,
-	useDerivedValue,
-} from 'react-native-reanimated';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-
-
-import Svg, { Circle } from 'react-native-svg';
-import { colors } from "../../theme/colors";
-
-
+import { colors } from '../../theme/colors';
 
 export const PlantList = ({ navigation }) => {
 
@@ -114,7 +103,7 @@ export const Plant = ({ plant, navigation, showProgressIndicator = false }) => {
 
 	return (
 		<TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20, marginHorizontal: 15 }}
-			onPress={() => navigation.navigate('PlantDetail', plant)}>
+			onPress={() => navigation.navigate('PlantDetail', { plant: plant })}>
 			<Avatar.Image size={60} source={{ uri: plant.images[0] }} style={{ backgroundColor: theme.colors.plantaDarkGreen }} />
 			<View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, flexDirection: 'column' }}>
 				<Text variant="body" style={{ color: theme.colors.plantkeeperDarkGreen }}>{plant.plantName}</Text>

@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Image, Pressable, TouchableOpacity } from 'react-native';
 import { Avatar, Button } from 'react-native-paper';
-import { SafeAreaWrapper } from '../safeAreaWrapper/safeAreaWrapper';
-
+import { SafeAreaWrapper } from '../../components/safeAreaWrapper/safeAreaWrapper';
+import BackroundImage from '../../../assets/background.jpg';
 
 
 export const TasksDetail = ({ navigation }) => {
 	return (<View style={{ flex: 1 }}>
 
-		<Image source={require('../../../assets/background.jpg')} style={{ height: 200, marginBottom: -200, resizeMode: 'cover', width: '100%' }} />
+		<Image source={BackroundImage} style={{ height: 200, marginBottom: -200, resizeMode: 'cover', width: '100%' }} />
 		<SafeAreaWrapper style={{ backgroundColor: 'transparent' }}>
 			<Pressable onPress={() => navigation.navigate('HomeScreen')}>
 				<Avatar.Icon icon="close" size={24} />

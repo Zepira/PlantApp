@@ -1,6 +1,7 @@
 
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState, createContext, useEffect, useContext } from 'react';
 import { GetWeather } from './weather.service';
+import { NotificationContext } from '../contextService/notifications/notification.context';
 //import * as Location from 'expo-location';
 
 
@@ -11,6 +12,7 @@ export const WeatherContextProvider = ({ children }) => {
 	const [weather, setWeather] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState();
+	const { schedulePushNotification } = useContext(NotificationContext);
 
 	useEffect(() => {
 		//let location = await Location.getCurrentPositionAsync({});
@@ -23,6 +25,11 @@ export const WeatherContextProvider = ({ children }) => {
 			GetWeather()
 				.then((result) => {
 					console.log('WATCH OUT!!', result);
+					schedulePushNotification({
+						title: 'Weather API Hit!!!',
+						body: 'Lets not spend too much',
+						data: { data: 'goes here' },
+					});
 					if (result.cod === 200) {
 						setWeather(result);
 						setIsLoading(false);

@@ -3,9 +3,10 @@ import { ImageBackground, ScrollView, View } from 'react-native';
 import { ActivityIndicator, Button, IconButton } from 'react-native-paper';
 import { WeatherContext, WeatherContextProvider } from '../../services/weather/weather.context';
 import { colors } from '../../theme/colors';
-import { TasksList } from '../../components/tasks/tasks';
+import { TasksList } from '../../pages/tasks/tasks';
 import { Spacer, Text } from '../../theme';
-import { GardenList } from '../../components/gardens/gardens';
+import { GardenList } from '../../pages/gardens/gardens';
+import Background from '../../../assets/background.jpg';
 
 
 export const Home = ({ route, navigation }) => {
@@ -40,12 +41,12 @@ export const Home = ({ route, navigation }) => {
 					<View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
 
 						<View style={{ backgroundColor: colors.plantKeeperLightGreen, borderRadius: 40, flex: 0, flexDirection: 'row', }}>
-							<Button style={{ backgroundColor: homeToggle === "tasks" ? colors.plantKeeperMidGreen : colors.plantKeeperLightGreen }} textColor={homeToggle === "tasks" ? 'white' : colors.plantKeeperCaption} onPress={() => setHomeToggle("tasks")}>Tasks</Button>
-							<Button style={{ backgroundColor: homeToggle === "myGarden" ? colors.plantKeeperMidGreen : colors.plantKeeperLightGreen }} textColor={homeToggle === "myGarden" ? 'white' : colors.plantKeeperCaption} onPress={() => setHomeToggle("myGarden")}>My Garden</Button>
+							<Button style={{ backgroundColor: homeToggle === 'tasks' ? colors.plantKeeperMidGreen : colors.plantKeeperLightGreen }} textColor={homeToggle === 'tasks' ? 'white' : colors.plantKeeperCaption} onPress={() => setHomeToggle('tasks')}>Tasks</Button>
+							<Button style={{ backgroundColor: homeToggle === 'myGarden' ? colors.plantKeeperMidGreen : colors.plantKeeperLightGreen }} textColor={homeToggle === 'myGarden' ? 'white' : colors.plantKeeperCaption} onPress={() => setHomeToggle('myGarden')}>My Garden</Button>
 						</View>
 					</View>
-					{homeToggle === "tasks" && <TasksList navigation={navigation} />}
-					{homeToggle === "myGarden" && <GardenList navigation={navigation} />}
+					{homeToggle === 'tasks' && <TasksList navigation={navigation} />}
+					{homeToggle === 'myGarden' && <GardenList navigation={navigation} />}
 				</Spacer>
 
 			</ScrollView>
@@ -64,11 +65,11 @@ export const Home = ({ route, navigation }) => {
 };
 
 const HeaderBar = () => {
-	const { weather, isLoading, error } = useContext(WeatherContext);
-
+	const { weather, isLoading } = useContext(WeatherContext);
+	var today = new Date();
 	return (
 		<View style={{ height: 150, flex: 1 }}>
-			<ImageBackground source={require('../../../assets/background.jpg')} style={{ flex: 1 }} >
+			<ImageBackground source={Background} style={{ flex: 1 }} >
 				<View style={{ backgroundColor: colors.transparentBlack40, flex: 1 }}>
 					<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', position: 'absolute', bottom: 5, width: '100%' }}>
 						{isLoading ? <ActivityIndicator style={{ position: 'absolute', top: '50%', left: '50%', marginTop: -40, marginLeft: -10 }} animating={true} color='red' />
@@ -76,7 +77,7 @@ const HeaderBar = () => {
 
 								<View style={{ padding: 15 }}>
 									<Text variant="h2" style={{ color: 'white' }}>{weather.name}</Text>
-									<Text variant="body" style={{ color: 'white' }}>13 April 2023</Text>
+									<Text variant="body" style={{ color: 'white' }}>{today.toLocaleDateString('en-AU')}</Text>
 									<Text variant="body" style={{ color: 'white' }}>{Math.round(weather.main.temp)}&deg;</Text>
 								</View>
 								<View style={{ padding: 15 }}>

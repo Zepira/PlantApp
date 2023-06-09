@@ -3,6 +3,7 @@ import React, { useState, useContext, createContext, useEffect } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, setDoc, getDoc, getDocs } from 'firebase/firestore';
 import { AppContext } from '../appContext';
+import { NotificationContext } from '../contextService/notifications/notification.context';
 
 export const AuthenticationContext = createContext();
 
@@ -13,6 +14,7 @@ export const AuthenticationContextProvider = ({ auth, children }) => {
 	const [error, setError] = useState();
 	const [hasCompletedEntryQuestions, setHasCompletedEntryQuestions] = useState(false);
 	const { db } = useContext(AppContext);
+	const { schedulePushNotification } = useContext(NotificationContext);
 
 
 	// useEffect(() => {
@@ -73,6 +75,11 @@ export const AuthenticationContextProvider = ({ auth, children }) => {
 			.then((u) => {
 				setUser(u.user);
 				setIsLoading(false);
+				schedulePushNotification({
+					title: 'Welcome to the App!',
+					body: 'Here is the notification body',
+					data: { data: 'goes here' },
+				});
 			})
 			.catch((e) => {
 				setIsLoading(false);

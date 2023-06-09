@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { SafeAreaWrapper, SafeAreaWrapperFullWidth } from "../../components/safeAreaWrapper/safeAreaWrapper";
-import { Avatar, Chip, IconButton, Searchbar } from "react-native-paper";
-import { getFirestore, collection, getDocs, doc, getDoc, query, setDoc } from "firebase/firestore";
-import { AuthenticationContext } from "../../services/authentication/authentication.context";
-import { Pressable, ScrollView, View } from "react-native";
-import { AppContext } from "../../services/appContext";
-import { PlantList } from "../../components/plants/plants";
-import { Text } from "../../theme";
+import React, { useState } from 'react';
+import { SafeAreaWrapperFullWidth } from '../../components/safeAreaWrapper/safeAreaWrapper';
+import { IconButton, Searchbar } from 'react-native-paper';
+import { Pressable, ScrollView, View } from 'react-native';
+import { PlantList } from '../../pages/plants/plants';
+import { Text } from '../../theme';
 import { colors } from '../../theme/colors';
 
 
@@ -79,4 +76,4 @@ export const PlantsScreen = ({ navigation }) => {
         <PlantList navigation={navigation} />
 
     </SafeAreaWrapperFullWidth>);
-}
+};

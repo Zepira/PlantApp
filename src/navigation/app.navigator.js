@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '../theme/colors';
 import { HomeNavigator } from './home.navigator';
-import { CameraScreen } from '../pages/camera/camera.screen';
-import { GardenNavigator, PlantsNavigator } from './plants.navigator';
-import { SettingPage } from '../pages/settings/settings.screen';
-import { Text } from '../theme';
-import { TouchableOpacity } from 'react-native';
-import { IconButton } from 'react-native-paper';
+import { CameraScreen } from '../screens/camera/camera.screen';
+import { PlantsNavigator } from './plants.navigator';
+import { SettingPage } from '../screens/settings/settings.screen';
+
 
 const TAB_ICON = {
 	Home: 'home',

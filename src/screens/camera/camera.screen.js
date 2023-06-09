@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Camera, CameraType } from 'expo-camera';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaWrapper } from '../../components/safeAreaWrapper/safeAreaWrapper';
@@ -11,15 +11,15 @@ import { AuthenticationContext } from '../../services/authentication/authenticat
 export const CameraScreen = () => {
 
 	const [type, setType] = useState(CameraType.back);
-	const [permission, requestPermission] = Camera.useCameraPermissions();
+	const [permission] = Camera.useCameraPermissions();
 	const cameraRef = useRef();
 	const { user } = useContext(AuthenticationContext);
 
-	useEffect(() => {
-		(async () => {
-			const { status } = await Camera.requestCameraPermissionsAsync();
-		});
-	}, []);
+	// useEffect(() => {
+	// 	(async () => {
+	// 		const { status } = await Camera.requestCameraPermissionsAsync();
+	// 	});
+	// }, []);
 
 	if (!permission) { return <View />; }
 

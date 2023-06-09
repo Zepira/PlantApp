@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Image, Pressable, TouchableOpacity, ImageBackground } from 'react-native';
-import { Avatar, Button } from 'react-native-paper';
-import { SafeAreaWrapper } from '../safeAreaWrapper/safeAreaWrapper';
+import { View, TouchableOpacity, ImageBackground } from 'react-native';
+import { Avatar } from 'react-native-paper';
+import { SafeAreaWrapper } from '../../components/safeAreaWrapper/safeAreaWrapper';
 import { Text, theme } from '../../theme';
 import { GARDEN_TYPE } from '../../utils/constants';
 import { getDocs, query, collection, where, getDoc, doc } from 'firebase/firestore';
@@ -12,15 +12,12 @@ import { Plant } from '../plants/plants';
 
 export const GardenDetail = ({ route, navigation }) => {
 	const { garden } = route.params;
-	const { db, setIsLoading } = useContext(AppContext);
+	const { db } = useContext(AppContext);
 	const [plants, setPlants] = useState([]);
 
 	useEffect(() => {
 		const getPlantData = async () => {
 			let fullPlantList = [];
-
-
-			let plantIdList = [];
 			let plantList = [];
 			const q = query(collection(db, 'userPlants'), where('gardenId', '==', garden.id));
 

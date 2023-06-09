@@ -1,11 +1,11 @@
 import React from 'react';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import { Home } from '../pages/home/home';
+import { Home } from '../screens/home/home';
 
-import { TasksDetail } from '../components/tasks/taskDetail';
+import { TasksDetail } from '../pages/tasks/taskDetail';
 import { PlantsNavigator } from './plants.navigator';
 import { GardenNavigator } from './garden.navigator';
-import { GardenDetail } from '../components/gardens/gardenDetail';
+import { GardenDetail } from '../pages/gardens/gardenDetail';
 
 const HomeStack = createStackNavigator();
 
