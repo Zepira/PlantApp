@@ -19,7 +19,6 @@ export const Home = ({ route, navigation }) => {
 
 	useEffect(() => {
 		if (data?.setHomeToggle === 'myGarden') {
-			console.log(data);
 			setHomeToggle('myGarden');
 		}
 	}, [route]);

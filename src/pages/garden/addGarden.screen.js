@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
-import { View } from "react-native";
-import { Text } from "../../theme";
-import { SafeAreaWrapper } from "../../components/safeAreaWrapper/safeAreaWrapper";
-import { TouchableOpacity } from "react-native";
-import { Avatar } from "react-native-paper";
-import { colors } from "../../theme/colors";
-import { FormComponent } from "../../components/formComponents/formComponent";
-import { validatePathConfig } from "@react-navigation/native";
-import { addDoc, arrayUnion, doc, setDoc, updateDoc, collection } from "firebase/firestore";
-import { AppContext } from "../../services/appContext";
-import { AuthenticationContext } from "../../services/authentication/authentication.context";
-import { GARDEN_TYPE } from "../../utils/constants";
+import React, { useContext } from 'react';
+import { View } from 'react-native';
+import { Text } from '../../theme';
+import { SafeAreaWrapper } from '../../components/safeAreaWrapper/safeAreaWrapper';
+import { TouchableOpacity } from 'react-native';
+import { Avatar } from 'react-native-paper';
+import { colors } from '../../theme/colors';
+import { FormComponent } from '../../components/formComponents/formComponent';
+import { validatePathConfig } from '@react-navigation/native';
+import { addDoc, arrayUnion, doc, setDoc, updateDoc, collection } from 'firebase/firestore';
+import { AppContext } from '../../services/appContext';
+import { AuthenticationContext } from '../../services/authentication/authentication.context';
+import { GARDEN_TYPE } from '../../utils/constants';
 
 
 export const AddGardenScreen = ({ navigation }) => {
@@ -115,4 +115,4 @@ export const AddGardenScreen = ({ navigation }) => {
 
         </SafeAreaWrapper>
     );
-}
+};

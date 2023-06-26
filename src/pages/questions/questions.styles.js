@@ -5,10 +5,9 @@ import { theme } from '../../theme';
 
 
 export const AccountBackground = styled.ImageBackground.attrs({
-	source: require('../../../assets/background.jpg'),
+  source: require('../../../assets/background.jpg'),
 })`
   flex: 1;
-  
   justify-content: center;
 `;
 
@@ -25,14 +24,13 @@ export const AccountContainer = styled.View`
     flex:1;
     backgroundColor: rgba(255,255,255,0.85);
   
-  
     align-items: center;
   
 `;
 
 export const FieldsContainer = styled.View`
     width: 100%;
-    marginTop: 20px;
+    margin: 20px;
 `;
 
 export const PrimaryButton = styled(TouchableOpacity)`
@@ -57,11 +55,11 @@ export const SecondaryButton = styled(TouchableOpacity)`
   `;
 
 export const InputField = styled(TextInput).attrs({
-	selectionColor: theme.colors.darkGreen,
-	activeUnderlineColor: theme.colors.darkGreen,
-	underlineColor: theme.colors.darkGreen,
-	textColor: 'black',
-	autoCapitalize: 'none'
+  selectionColor: theme.colors.darkGreen,
+  activeUnderlineColor: theme.colors.darkGreen,
+  underlineColor: theme.colors.darkGreen,
+  textColor: 'black',
+  autoCapitalize: 'none'
 })`
     backgroundColor: white;
   

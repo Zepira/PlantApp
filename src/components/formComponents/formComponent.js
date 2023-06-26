@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
-import { RadioButton, IconButton, Button, Dialog, Portal, ProgressBar, TextInput } from 'react-native-paper';
+import { View, Pressable } from 'react-native';
+import { RadioButton, IconButton, Button, Dialog, Portal, ProgressBar, TextInput, Avatar } from 'react-native-paper';
 import { colors } from '../../theme/colors';
 import { PrimaryButton, SecondaryButton } from './formComponent.styles';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Text } from '../../theme/components/text.component';
 
 
 export const FormComponent = ({ data, onCompleteForm }) => {
@@ -18,6 +19,8 @@ export const FormComponent = ({ data, onCompleteForm }) => {
 	const [formResponse, setFormResponse] = useState({});
 	const textRef = useRef('');
 	const questionaireLength = data.length;
+
+	console.log(data[0]);
 
 	// const textToRef = (text) => {
 	// 	textRef.current = text;
@@ -52,7 +55,7 @@ export const FormComponent = ({ data, onCompleteForm }) => {
 	}, [formProgress, setPercentageFormComplete, percentageFormComplete]);
 
 	const progressForm = (direction) => {
-
+		console.log('alana', direction, formProgress === questionaireLength - 1);
 		if (direction === 'forward') {
 			if (data[formProgress].questionType === 'textInput') {
 				console.log('check on last q', text);
@@ -86,10 +89,10 @@ export const FormComponent = ({ data, onCompleteForm }) => {
 
 
 	return (
-		<View style={{ flex: 1, alignItems: 'center' }}>
-			<View style={{ marginTop: 20, flex: 1, width: '80%', justifyContent: 'space-between' }}>
-				<ProgressBar progress={percentageFormComplete} color={colors.plantkeeperDarkGreen} style={{ borderRadius: 20, marginBottom: 30 }} />
-				<Text variant="h2" style={{ textAlign: 'center' }}>{data[formProgress].questionText}</Text>
+		<View style={{ alignItems: 'center', width: '100%', height: '100%', padding: 20, }}>
+			<View style={{ width: '100%', height: '100%', justifyContent: 'space-between' }}>
+
+				<Text variant="h1" style={{ textAlign: 'center' }}>{data[formProgress].questionText}</Text>
 				<Text variant="label" style={{ textAlign: 'center', marginVertical: 20 }}>{data[formProgress].questionSubText}</Text>
 
 
@@ -112,12 +115,10 @@ export const FormComponent = ({ data, onCompleteForm }) => {
 					value={text}
 					onChangeText={text => setText(text)}
 				/>}
+
+				{/* For Select/ List Questions */}
 				{data[formProgress].questionType === 'select' && <ScrollView>
-					{data[formProgress].options.map((option) => <Pressable key={option.optionMapping} onPress={() => updateFormValue(option.optionMapping)}>
-						<Text style={{ fontWeight: option.optionMapping === formResponse[data[formProgress].databaseValue] ? 'bold' : 'semibold' }}>
-							{option.optionText}
-						</Text>
-					</Pressable>)}
+					{data[formProgress].options.map((option) => <SelectListComponent key={option.optionText} option={option} updateFormValue={updateFormValue} />)}
 				</ScrollView>}
 
 				<View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', alignItems: 'flex-end' }}>
@@ -129,7 +130,9 @@ export const FormComponent = ({ data, onCompleteForm }) => {
 						<Text variant="button" style={{ color: 'white' }}>Next</Text>
 					</PrimaryButton>
 
+
 				</View>
+				<ProgressBar progress={percentageFormComplete} color={colors.plantkeeperDarkGreen} style={{ borderRadius: 20, marginBottom: 30 }} />
 
 			</View>
 			<Portal>
@@ -143,9 +146,30 @@ export const FormComponent = ({ data, onCompleteForm }) => {
 					</Dialog.Actions>
 				</Dialog>
 			</Portal>
-		</View>
+		</View >
 
 	);
+
+};
+
+const SelectListComponent = ({ option, updateFormValue }) => {
+	const [isSelected, setIsSelected] = useState(false);
+
+
+	return (<Pressable onPress={() => { setIsSelected(!isSelected); updateFormValue(option.optionMapping); }} >
+		<View style={{ flexDirection: 'row', backgroundColor: 'white', justifyContent: 'space-between', marginBottom: 20, padding: 20, borderRadius: 20, borderWidth: 1, borderColor: isSelected ? 'black' : 'white' }}
+		>
+			<Avatar.Image size={60} source={{ uri: option.optionImage }} style={{ backgroundColor: colors.plantaDarkGreen }} />
+
+			<View style={{ flex: 1, justifyContent: 'center', marginLeft: 15 }}>
+				<Text variant="body" style={{ color: colors.plantkeeperDarkGreen }}>{option.optionText}</Text>
+			</View>
+			<View style={{ flex: 0 }}>
+			</View>
+
+		</View>
+
+	</Pressable>);
 
 };
 

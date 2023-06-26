@@ -40,10 +40,12 @@ export const NotificationContextProvider = ({ children }) => {
 		Notifications.removeNotificationSubscription(notificationListener.current);
 		Notifications.removeNotificationSubscription(responseListener.current);
 
-		//Notifications.cancelAllScheduledNotificationsAsync();
+		Notifications.cancelAllScheduledNotificationsAsync();
 		Notifications.getAllScheduledNotificationsAsync().then((notifications) => {
 			setPendingNotifications(notifications);
 		});
+
+
 
 
 	}, []);
@@ -114,3 +116,5 @@ async function registerForPushNotificationsAsync() {
 
 	return token;
 }
+
+

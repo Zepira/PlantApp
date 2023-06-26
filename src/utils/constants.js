@@ -3,7 +3,7 @@ export const EXPO_PROJECT_ID = 'cc10a9d8-71f7-4c7a-bd2e-8d2db49c2e6d';
 export const GARDEN_TYPE = [
     {
         optionText: 'Indoor room',
-        optionMapping: 1,
+        optionMapping: 0,
         location: 'Indoor',
         wateringFrequency: 3,
         fertilisingFrequency: 3,
@@ -12,7 +12,7 @@ export const GARDEN_TYPE = [
     },
     {
         optionText: 'Raised garden bed',
-        optionMapping: 2,
+        optionMapping: 1,
         location: 'Outdoor',
         wateringFrequency: 3,
         fertilisingFrequency: 3,
@@ -22,7 +22,7 @@ export const GARDEN_TYPE = [
     },
     {
         optionText: 'Pot garden',
-        optionMapping: 3,
+        optionMapping: 2,
         location: 'Outdoor',
         wateringFrequency: 3,
         fertilisingFrequency: 3,
@@ -50,3 +50,68 @@ export const GARDEN_TYPE = [
         optionDetail: 'At least 8h of full sun',
         defaultImage: 'https://firebasestorage.googleapis.com/v0/b/plantapp-ca700.appspot.com/o/images%2Findoor-garden.jpg?alt=media&token=aec22247-642f-477d-bf48-1b7cfa83e101'
     }];
+
+export const LIGHTING = [
+    {
+        optionText: 'Full Sun',
+        optionMapping: 0,
+        optionDetail: 'At least 8h of full sun',
+    },
+    {
+        optionText: 'Part Sun',
+        optionMapping: 1,
+        optionDetail: 'Part Sun',
+    },
+    {
+        optionText: 'Shade',
+        optionMapping: 2,
+        optionDetail: 'Shade',
+    },
+    {
+        optionText: 'Dim',
+        optionMapping: 3,
+        optionDetail: 'Indoors or outdoors with very little light',
+    },
+];
+
+
+export const CLIMATE_ZONES = [
+    {
+        optionText: 'Tropical',
+        optionMapping: 0,
+    },
+    {
+        optionText: 'Arid',
+        optionMapping: 1,
+    },
+    {
+        optionText: 'Subtropical',
+        optionMapping: 2,
+    },
+    {
+        optionText: 'Temperate',
+        optionMapping: 3,
+    },
+    {
+        optionText: 'Cool',
+        optionMapping: 4,
+    }
+];
+
+export const GROWING_STAGES = [
+    {
+        optionText: 'Seed',
+        optionMapping: 0,
+        optionImage: ''
+    },
+    {
+        optionText: 'Seedling',
+        optionMapping: 1,
+        optionImage: ''
+    },
+    {
+        optionText: 'Mature Plant',
+        optionMapping: 2,
+        optionImage: ''
+    },
+];

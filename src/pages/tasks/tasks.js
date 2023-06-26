@@ -8,6 +8,7 @@ import { theme, Text } from '../../theme';
 import { AppContext } from '../../services/appContext';
 import { AuthenticationContext } from '../../services/authentication/authentication.context';
 import { doc, query, collection, getDocs, where, updateDoc } from 'firebase/firestore';
+import { GARDEN_TYPE } from '../../utils/constants';
 
 
 export const TasksList = ({ navigation }) => {
@@ -41,6 +42,10 @@ export const TasksList = ({ navigation }) => {
 			userGardens.forEach((garden) => {
 				const gardenData = garden.data();
 				const date = new Date();
+				let gardenImage = gardenData.gardenImage;
+				if (!gardenData.gardenImage) {
+					gardenImage = GARDEN_TYPE[gardenData.gardenType].defaultImage;
+				}
 
 				if (!gardenData.automatedWatering) {
 
@@ -50,7 +55,7 @@ export const TasksList = ({ navigation }) => {
 						gardensToWater.push(
 							{
 								'gardenName': gardenData.gardenName,
-								'gardenImage': require('../../../assets/vegetable-garden.jpg'),
+								'gardenImage': gardenImage,
 								'plants': ['Parsley', 'Rosemary', 'Carrots', 'Strawberries', 'Potato'
 								],
 								'id': garden.id,
@@ -67,7 +72,7 @@ export const TasksList = ({ navigation }) => {
 					gardensToFertilise.push(
 						{
 							'gardenName': gardenData.gardenName,
-							'gardenImage': require('../../../assets/vegetable-garden.jpg'),
+							'gardenImage': gardenImage,
 							'plants': ['Parsley', 'Rosemary', 'Carrots', 'Strawberries', 'Potato'
 							],
 							'id': garden.id,
@@ -79,7 +84,7 @@ export const TasksList = ({ navigation }) => {
 					gardensToWeed.push(
 						{
 							'gardenName': gardenData.gardenName,
-							'gardenImage': require('../../../assets/vegetable-garden.jpg'),
+							'gardenImage': gardenImage,
 							'plants': ['Parsley', 'Rosemary', 'Carrots', 'Strawberries', 'Potato'
 							],
 							'id': garden.id,
@@ -111,10 +116,15 @@ export const TasksList = ({ navigation }) => {
 					});
 				}).then(() => {
 
+					let gardenImage = garden.data().gardenImage;
+					if (!gardenImage) {
+						gardenImage = GARDEN_TYPE[garden.data().gardenType].defaultImage;
+					}
+
 					gardensToHarvest.push(
 						{
 							'gardenName': garden.data().gardenName,
-							'gardenImage': require('../../../assets/vegetable-garden.jpg'),
+							'gardenImage': gardenImage,
 							'plants': plantsToHarvest,
 							'id': garden.id,
 							'checked': false
@@ -197,7 +207,7 @@ const Tasks = ({ gardenTask, navigation, completeTask }) => {
 	return (
 		<TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20, }}
 			onPress={() => navigation.navigate('TaskDetail', params = {})}>
-			<Avatar.Image size={60} source={gardenTask.gardenImage} style={{ backgroundColor: colors.plantaDarkGreen }} />
+			<Avatar.Image size={60} source={{ uri: gardenTask.gardenImage }} style={{ backgroundColor: colors.plantaDarkGreen }} />
 			<View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, flexDirection: 'column' }}>
 				<Text variant="body" style={{ color: colors.plantkeeperDarkGreen }}>{gardenTask.gardenName}</Text>
 				<Text variant="caption">{gardenTask.plants.join([separator = ', '])}</Text>

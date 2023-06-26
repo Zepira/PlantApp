@@ -17,13 +17,13 @@ export const GetUserNotification = (pendingNotifications) => {
     }
 
     const notificationContent = {
-        title: 'This is scheduled for 11am every day',
+        title: 'This is scheduled for 1.40pm every day',
         body: 'Here is the notification body',
         categoryIdentifier: 'Morning Notification',
         data: { data: 'goes here' },
     };
 
-    const notificationSchedule = { hour: 11, minute: 0, repeats: true };
+    const notificationSchedule = { hour: 13, minute: 40, repeats: true };
 
 
 

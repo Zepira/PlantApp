@@ -1,7 +1,7 @@
 export const colors = {
 
 	primary: '#96A594',
-	onPrimary: '#e6000d',
+	onPrimary: 'white', //label of contained button
 	primaryContainer: '#779673',
 	onPrimaryContainer: '#779673',
 	secondary: '#e6000d',
@@ -47,6 +47,7 @@ export const colors = {
 	plantaDarkGreen: '#1b4723',
 	darkGreen: '#5D8261', //plantkeeper pale green colour
 	lightBlue: '#A8D3E0ff',
+	redDelete: '#9c3a35',
 	moonstone: '#7EB2C1ff',
 	ashGray: '#A1AB91ff',
 	beige: '#D8DDC9ff',

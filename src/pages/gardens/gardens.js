@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View } from 'react-native';
-import { Avatar, Card, IconButton, RadioButton } from 'react-native-paper';
-import { colors } from '../../theme/colors';
+import { Avatar, Card, IconButton } from 'react-native-paper';
 import { theme, Text } from '../../theme';
 import { AppContext } from '../../services/appContext';
 import { AuthenticationContext } from '../../services/authentication/authentication.context';
 import { GARDEN_TYPE } from '../../utils/constants';
-import { doc, query, collection, getDoc, getDocs, where } from 'firebase/firestore';
+import { query, collection, getDocs, where } from 'firebase/firestore';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 export const GardenList = ({ navigation }) => {
@@ -16,14 +16,17 @@ export const GardenList = ({ navigation }) => {
 	const { user } = useContext(AuthenticationContext);
 	const [gardenData, setGardenData] = useState();
 
-	useEffect(() => {
-		const gardensQuery = query(collection(db, 'userGardens'), where('user', '==', user.uid));
-		getDocs(gardensQuery).then((querySnapshot) => {
-			const docs = querySnapshot.docs.map((f) => ({ ...f.data(), ...{ id: f.id } }));
-			setGardenData(docs);
-		}
-		);
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			const gardensQuery = query(collection(db, 'userGardens'), where('user', '==', user.uid));
+			getDocs(gardensQuery).then((querySnapshot) => {
+				const docs = querySnapshot.docs.map((f) => ({ ...f.data(), ...{ id: f.id } }));
+				setGardenData(docs);
+			}
+			);
+		}, [])
+
+	);
 
 
 	return (
@@ -33,7 +36,7 @@ export const GardenList = ({ navigation }) => {
 				<Card.Content >
 					{gardenData && gardenData.map((garden, index) =>
 						<View key={index}>
-							<Tasks garden={garden} navigation={navigation} />
+							<Garden garden={garden} navigation={navigation} />
 						</View>
 					)}
 
@@ -46,20 +49,20 @@ export const GardenList = ({ navigation }) => {
 	);
 };
 
-const Tasks = ({ garden, navigation }) => {
-	let gardenType = GARDEN_TYPE[garden.gardenType - 1];
+const Garden = ({ garden, navigation }) => {
+	const gardenType = GARDEN_TYPE[garden.gardenType];
+	let gardenImage = gardenType.defaultImage;
 
 
-
-	if (!garden.gardenImage) {
-		garden.gardenImage = gardenType.defaultImage;
+	if (garden.gardenImage) {
+		gardenImage = garden.gardenImage;
 	}
 
 	return (
 
 		<TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}
 			onPress={() => navigation.navigate('GardenDetail', { garden })}>
-			<Avatar.Image size={60} source={{ uri: garden.gardenImage }} style={{ backgroundColor: theme.colors.plantaDarkGreen }} />
+			<Avatar.Image size={60} source={{ uri: gardenImage }} style={{ backgroundColor: theme.colors.plantaDarkGreen }} />
 			<View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, flexDirection: 'column' }}>
 				<Text variant="body" style={{ color: theme.colors.plantkeeperDarkGreen }}>{garden.gardenName}</Text>
 				<Text variant="caption"> {gardenType ? gardenType.optionText : ''}</Text>

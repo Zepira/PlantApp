@@ -19,6 +19,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import React from 'react';
 import { AppContextProvider } from './src/services/appContext';
 import { NotificationContextProvider } from './src/services/contextService/notifications/notification.context';
+import { BusinessLogicService } from './src/services/businessLogicService/businessLogicService';
 
 //Initialize Firebase
 const firebaseConfig = {
@@ -55,9 +56,7 @@ export default function App() {
 				<AppContextProvider auth={auth} db={db} storage={storage}>
 					<NotificationContextProvider >
 						<AuthenticationContextProvider auth={auth} db={db} storage={storage}>
-
 							<Navigation theme={paperTheme} />
-
 						</AuthenticationContextProvider>
 					</NotificationContextProvider>
 				</AppContextProvider>

@@ -40,7 +40,8 @@ export const PlantList = ({ navigation }) => {
 		</>);
 };
 
-export const Plant = ({ plant, navigation, showProgressIndicator = false }) => {
+export const Plant = ({ plant, navigation, showProgressIndicator = false, showUserPlants = false }) => {
+
 
 	const [growthProgress, setGrowthProgress] = useState(0);
 	const [growthStage, setGrowthStage] = useState(0);
@@ -103,7 +104,13 @@ export const Plant = ({ plant, navigation, showProgressIndicator = false }) => {
 
 	return (
 		<TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20, marginHorizontal: 15 }}
-			onPress={() => navigation.navigate('PlantDetail', { plant: plant })}>
+			onPress={() => {
+				if (!showUserPlants) {
+					navigation.navigate('PlantDetail', { plant: plant });
+				} else {
+					navigation.navigate('UserPlantDetail', { plant: plant });
+				}
+			}}>
 			<Avatar.Image size={60} source={{ uri: plant.images[0] }} style={{ backgroundColor: theme.colors.plantaDarkGreen }} />
 			<View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, flexDirection: 'column' }}>
 				<Text variant="body" style={{ color: theme.colors.plantkeeperDarkGreen }}>{plant.plantName}</Text>
