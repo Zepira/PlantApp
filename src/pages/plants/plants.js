@@ -117,6 +117,8 @@ export const Plant = ({ plant, navigation, showProgressIndicator = false, showUs
 				<Text variant="caption">{plant.plantType}</Text>
 			</View>
 
+			<Text style={{ color: theme.colors.plantkeeperDarkGreen, alignSelf: 'center' }}>{plant.count}</Text>
+
 			{showProgressIndicator && <GrowthProgressIndicator growthStage={growthStage} growthProgress={growthProgress} />}
 			<View style={{ flex: 0 }}>
 
@@ -146,6 +148,6 @@ const GrowthProgressIndicator = ({ growthStage, growthProgress }) =>
 			rotation={240}
 			lineCap="round"
 		/>}
-		{growthStage == 2 && <Avatar.Icon icon="flower" size={50} color={colors.plantKeeperDarkestGreen} style={{ backgroundColor: colors.transparent }} />}
+		{growthStage === 2 && <Avatar.Icon icon="flower" size={50} color={colors.plantKeeperDarkestGreen} style={{ backgroundColor: colors.transparent }} />}
 	</View>;
 

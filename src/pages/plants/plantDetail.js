@@ -38,6 +38,7 @@ export const PlantsDetail = ({ route, navigation }) => {
 			getDocs(gardensQuery).then((querySnapshot) => {
 				const docs = querySnapshot.docs.map((f) => ({ ...f.data(), ...{ id: f.id } }));
 				const options = querySnapshot.docs.map((f) => ({ ...{ optionText: f.data().gardenName, optionMapping: f.id, optionImage: f.data().gardenImage } }));
+
 				setGardens(docs);
 				setGardenOptions(options);
 			}
@@ -95,16 +96,18 @@ export const PlantsDetail = ({ route, navigation }) => {
 
 
 		const date = new Date();
+		console.log('formData', formData);
 
 		const newUserPlant = {
 			plantId: plant.id,
-			gardenId: formData.gardenId,
+			gardenId: formData.gardenId ? formData.gardenId : null,
 			growthStage: formData.growthStage,
 			userId: user.uid,
 			dateSown: date,
 			plantName: plant.plantName,
 			images: selectedVariety !== null ? selectedVariety.images : plant.images,
-			variety: selectedVariety !== null ? selectedVariety.varietyName : null
+			variety: selectedVariety !== null ? selectedVariety.varietyName : null,
+			count: formData.plantCount
 		};
 
 		console.log('newPlant', newUserPlant);
@@ -205,7 +208,7 @@ export const PlantsDetail = ({ route, navigation }) => {
 			questionText: 'How many of this plant/ variety are you planting?',
 			databaseValue: 'plantCount',
 			questionSubText: '',
-			questionType: 'slider',
+			questionType: 'number',
 			options: ''
 		},
 

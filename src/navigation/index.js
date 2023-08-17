@@ -6,9 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { QuestionaireNavigator } from './questionaire.navigator';
 
 
-
 export const Navigation = () => {
-	const { isAuthenticated, hasCompletedEntryQuestions } = useContext(AuthenticationContext);
+	const { isAuthenticated, isFirstTimeUser } = useContext(AuthenticationContext);
 
 	const questionaireData = [
 		{
@@ -98,11 +97,13 @@ export const Navigation = () => {
 
 	useEffect(() => {
 
-	}, [hasCompletedEntryQuestions]);
+	}, [isFirstTimeUser]);
+
+
 
 	return (<NavigationContainer>
 		{isAuthenticated ? <>
-			{hasCompletedEntryQuestions ?
+			{isFirstTimeUser ?
 				<AppNavigator /> :
 				<QuestionaireNavigator data={questionaireData} />
 			}

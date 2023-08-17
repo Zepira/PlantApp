@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -7,6 +7,9 @@ import { HomeNavigator } from './home.navigator';
 import { CameraScreen } from '../screens/camera/camera.screen';
 import { PlantsNavigator } from './plants.navigator';
 import { SettingPage } from '../screens/settings/settings.screen';
+import { UserNotifications } from '../services/businessLogicService/businessLogicService';
+import { AuthenticationContext } from '../services/authentication/authentication.context';
+import { AppContext } from '../services/appContext';
 
 
 const TAB_ICON = {
@@ -41,9 +44,14 @@ const screenOptions = ({ route }) => {
 
 export const AppNavigator = () => {
 
+	const { userData } = useContext(AuthenticationContext);
+	const { db } = useContext(AppContext);
+
 
 	return (
+
 		<View style={{ flex: 1 }}>
+
 			<Tab.Navigator
 				screenOptions={screenOptions} >
 				<Tab.Screen name="Home" component={HomeNavigator} />
@@ -53,6 +61,7 @@ export const AppNavigator = () => {
 
 			</Tab.Navigator>
 
+			<UserNotifications userData={userData} db={db} />
 		</View>
 
 	);

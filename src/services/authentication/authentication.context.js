@@ -1,9 +1,10 @@
 
 import React, { useState, useContext, createContext, useEffect } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, setDoc, getDoc, getDocs } from 'firebase/firestore';
+import { doc, setDoc, getDoc, getDocs, addDoc, collection } from 'firebase/firestore';
 import { AppContext } from '../appContext';
 import { NotificationContext } from '../contextService/notifications/notification.context';
+import { GARDEN_TYPE } from '../../utils/constants';
 
 export const AuthenticationContext = createContext();
 
@@ -12,7 +13,7 @@ export const AuthenticationContextProvider = ({ auth, children }) => {
 	const [userData, setUserData] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState();
-	const [hasCompletedEntryQuestions, setHasCompletedEntryQuestions] = useState(false);
+	const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
 	const { db } = useContext(AppContext);
 	const { schedulePushNotification } = useContext(NotificationContext);
 
@@ -126,7 +127,15 @@ export const AuthenticationContextProvider = ({ auth, children }) => {
 	};
 
 	const onCompleteEntryQuestions = () => {
-		setHasCompletedEntryQuestions(!hasCompletedEntryQuestions);
+		setIsFirstTimeUser(!isFirstTimeUser);
+		addDoc(collection(db, 'userGardens'), {
+			gardenName: GARDEN_TYPE[6].gardenName,
+			user: user?.uid,
+			gardenType: GARDEN_TYPE[6].optionMapping,
+			wateringFrequency: GARDEN_TYPE[6].wateringFrequency,
+			fertilisingFrequency: GARDEN_TYPE[6].fertilisingFrequency,
+			weedingFrequency: GARDEN_TYPE[6].weedingFrequency
+		});
 	};
 
 	const updateUserData = () => {
@@ -146,7 +155,7 @@ export const AuthenticationContextProvider = ({ auth, children }) => {
 		<AuthenticationContext.Provider
 			value={{
 				isAuthenticated: !!user,
-				hasCompletedEntryQuestions: true, //need to get/ set this on user
+				isFirstTimeUser: true, //need to get/ set this on user
 				onCompleteEntryQuestions, //same as above
 				isLoading,
 				error,

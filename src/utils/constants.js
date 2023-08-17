@@ -32,7 +32,7 @@ export const GARDEN_TYPE = [
     },
     {
         optionText: 'In-ground bed',
-        optionMapping: 4,
+        optionMapping: 3,
         location: 'Outdoor',
         wateringFrequency: 3,
         fertilisingFrequency: 3,
@@ -42,13 +42,23 @@ export const GARDEN_TYPE = [
     },
     {
         optionText: 'Vertical garden',
-        optionMapping: 5,
+        optionMapping: 4,
         location: 'Outdoor',
         wateringFrequency: 3,
         fertilisingFrequency: 3,
         weedingFrequency: 20,
         optionDetail: 'At least 8h of full sun',
         defaultImage: 'https://firebasestorage.googleapis.com/v0/b/plantapp-ca700.appspot.com/o/images%2Findoor-garden.jpg?alt=media&token=aec22247-642f-477d-bf48-1b7cfa83e101'
+    },
+    {
+        optionText: 'Nursery',
+        optionMapping: 5,
+        location: 'Indoor',
+        wateringFrequency: 3,
+        fertilisingFrequency: 3,
+        weedingFrequency: 20,
+        optionDetail: 'At least 8h of full sun',
+        defaultImage: 'https://firebasestorage.googleapis.com/v0/b/plantapp-ca700.appspot.com/o/images%2Fgarden-bed.jpg?alt=media&token=b23933bb-e3f7-43e1-87bf-d1a7a223246d'
     }];
 
 export const LIGHTING = [

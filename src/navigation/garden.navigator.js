@@ -12,6 +12,7 @@ export const GardenNavigator = () => {
 
 		}}>
 			<GardenStack.Screen name="AddGarden" component={AddGardenScreen} />
+
 		</GardenStack.Navigator>
 	);
 };

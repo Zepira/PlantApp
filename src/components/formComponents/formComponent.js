@@ -5,6 +5,7 @@ import { colors } from '../../theme/colors';
 import { PrimaryButton, SecondaryButton } from './formComponent.styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Text } from '../../theme/components/text.component';
+import { color } from 'react-native-reanimated';
 
 
 export const FormComponent = ({ data, onCompleteForm }) => {
@@ -96,6 +97,7 @@ export const FormComponent = ({ data, onCompleteForm }) => {
 				<Text variant="label" style={{ textAlign: 'center', marginVertical: 20 }}>{data[formProgress].questionSubText}</Text>
 
 
+				{/* For Radio button Questions */}
 				{data[formProgress].questionType === 'radioGroup' && <RadioButton.Group onValueChange={newValue => { setValue(newValue); updateFormValue(newValue); }} value={value} style={{ flex: 1, }}>
 					{data[formProgress].options.map((option) => <View key={option.optionMapping} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 						<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
@@ -111,15 +113,20 @@ export const FormComponent = ({ data, onCompleteForm }) => {
 
 					</View>)}
 				</RadioButton.Group>}
+
+				{/* For Text Input Questions */}
 				{data[formProgress].questionType === 'textInput' && <TextInput
 					value={text}
 					onChangeText={text => setText(text)}
 				/>}
 
 				{/* For Select/ List Questions */}
-				{data[formProgress].questionType === 'select' && <ScrollView>
+				{data[formProgress].questionType === 'select' && <ScrollView style={{ height: '65%' }}>
 					{data[formProgress].options.map((option) => <SelectListComponent key={option.optionText} option={option} updateFormValue={updateFormValue} />)}
 				</ScrollView>}
+
+				{/* For Number Questions */}
+				{data[formProgress].questionType === 'number' && <NumberComponent updateFormValue={updateFormValue} />}
 
 				<View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', alignItems: 'flex-end' }}>
 					{/* TODO Add back button, fix issues */}
@@ -152,8 +159,31 @@ export const FormComponent = ({ data, onCompleteForm }) => {
 
 };
 
+const NumberComponent = ({ updateFormValue }) => {
+
+	const [numberValue, setNumberValue] = useState(1);
+
+	const updateNumber = (isIncreased) => {
+		let updatedNumber = isIncreased ? numberValue + 1 : numberValue - 1;
+		setNumberValue(updatedNumber);
+		updateFormValue(updatedNumber);
+	};
+
+	return (<View style={{ flex: 1, flexDirection: 'row', marginTop: '30%', justifyContent: 'space-evenly', alignItems: 'center' }}>
+
+		<IconButton mode="contained" icon='minus' size={40} onPress={() => updateNumber(false)}></IconButton>
+
+		<Text style={{ fontSize: 100, color: colors.plantKeeperDarkestGreen }}>{numberValue}</Text>
+		<IconButton mode="contained" icon='plus' size={40} onPress={() => updateNumber(true)}></IconButton>
+	</View >);
+
+};
+
+
 const SelectListComponent = ({ option, updateFormValue }) => {
 	const [isSelected, setIsSelected] = useState(false);
+
+	console.log('OPTION', option);
 
 
 	return (<Pressable onPress={() => { setIsSelected(!isSelected); updateFormValue(option.optionMapping); }} >
